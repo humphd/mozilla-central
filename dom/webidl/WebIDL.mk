@@ -81,6 +81,7 @@ webidl_files = \
   HTMLTableRowElement.webidl \
   HTMLTableSectionElement.webidl \
   HTMLTitleElement.webidl \
+  HTMLTrackElement.webidl \
   HTMLUListElement.webidl \
   ImageData.webidl \
   Location.webidl \
@@ -170,6 +171,9 @@ webidl_files = \
   Text.webidl \
   TextDecoder.webidl \
   TextEncoder.webidl \
+  TextTrack.webidl \
+  TextTrackCue.webidl \
+  TextTrackCueList.webidl \
   URL.webidl \
   ValidityState.webidl \
   WebSocket.webidl \
