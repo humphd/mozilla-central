@@ -1067,15 +1067,6 @@ const nsHTMLElement gHTMLElements[] = {
     /*special props, prop-range*/       kNonContainer,kNoPropRange,
     /*special parents,kids*/            &gSourceParents,0,
   },
-  {
-    /*tag*/                             eHTMLTag_track,
-    /*req-parent excl-parent*/          eHTMLTag_unknown,eHTMLTag_unknown,
-    /*rootnodes,endrootnodes*/          &gTrackParents,&gTrackParents,
-    /*autoclose starttags and endtags*/ &gPAutoClose, 0, 0,0,
-    /*parent,incl,exclgroups*/          kSpecial, kNone, kNone,
-    /*special props, prop-range*/       kNonContainer,kNoPropRange,
-    /*special parents,kids*/            &gTrackParents,0,
-  },
 #endif
   {
     
@@ -1229,6 +1220,17 @@ const nsHTMLElement gHTMLElements[] = {
     /*special props, prop-range*/       0, kDefaultPropRange,
     /*special parents,kids*/            0,0,
   },
+#if defined(MOZ_MEDIA)
+  {
+    /*tag*/                             eHTMLTag_track,
+    /*req-parent excl-parent*/          eHTMLTag_unknown,eHTMLTag_unknown,
+    /*rootnodes,endrootnodes*/          &gTrackParents,&gTrackParents,
+    /*autoclose starttags and endtags*/ &gPAutoClose, 0, 0,0,
+    /*parent,incl,exclgroups*/          kSpecial, kNone, kNone,
+    /*special props, prop-range*/       kNonContainer,kNoPropRange,
+    /*special parents,kids*/            &gTrackParents,0,
+  },
+#endif
   {
     /*tag*/                             eHTMLTag_u,
     /*req-parent excl-parent*/          eHTMLTag_unknown,eHTMLTag_unknown,
