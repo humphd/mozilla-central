@@ -12,13 +12,16 @@ interface HTMLTrackElement : HTMLElement {
            attribute DOMString src;
            attribute DOMString srclang;
            attribute DOMString label;
-           attribute boolean default;
+// TODOhumph
+//           attribute boolean default;
 
   const unsigned short NONE = 0;
   const unsigned short LOADING = 1;
   const unsigned short LOADED = 2;
   const unsigned short ERROR = 3;
-  readonly attribute unsigned short readyState;
+// TODOhumph
+//  readonly attribute unsigned short readyState;
 
-  readonly attribute TextTrack track;
+// TODOhumph
+//  readonly attribute TextTrack track;
 };

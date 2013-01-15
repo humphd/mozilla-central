@@ -172,8 +172,6 @@ webidl_files = \
   TextDecoder.webidl \
   TextEncoder.webidl \
   TextTrack.webidl \
-  TextTrackCue.webidl \
-  TextTrackCueList.webidl \
   URL.webidl \
   ValidityState.webidl \
   WebSocket.webidl \
@@ -184,6 +182,10 @@ webidl_files = \
   XMLSerializer.webidl \
   XPathEvaluator.webidl \
   $(NULL)
+# XXXhumph
+#  TextTrackCue.webidl \
+#  TextTrackCueList.webidl \
+
 
 ifdef MOZ_WEBGL
 webidl_files += \

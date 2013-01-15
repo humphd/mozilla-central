@@ -33,15 +33,24 @@ XPIDLSRCS = \
   nsIMediaManager.idl \
   $(NULL)
 
-EXPORTS_NAMESPACE = mozilla
+EXPORTS_NAMESPACES = \
+	mozilla \
+	mozilla/dom \
+	$(NULL)
 
 EXPORTS_mozilla = \
   MediaManager.h \
   $(NULL)
 
+EXPORTS_mozilla/dom = \
+  TextTrack.h \
+  $(NULL)
+
 CPPSRCS = \
   MediaManager.cpp \
   $(NULL)
+#XXXhumph:
+#  TextTrack.cpp \
 
 ifdef MOZ_WEBRTC
 LOCAL_INCLUDES += \
