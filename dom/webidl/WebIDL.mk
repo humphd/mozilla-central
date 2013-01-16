@@ -81,7 +81,6 @@ webidl_files = \
   HTMLTableRowElement.webidl \
   HTMLTableSectionElement.webidl \
   HTMLTitleElement.webidl \
-  HTMLTrackElement.webidl \
   HTMLUListElement.webidl \
   ImageData.webidl \
   Location.webidl \
@@ -171,7 +170,6 @@ webidl_files = \
   Text.webidl \
   TextDecoder.webidl \
   TextEncoder.webidl \
-  TextTrack.webidl \
   URL.webidl \
   ValidityState.webidl \
   WebSocket.webidl \
@@ -182,10 +180,6 @@ webidl_files = \
   XMLSerializer.webidl \
   XPathEvaluator.webidl \
   $(NULL)
-# XXXhumph
-#  TextTrackCue.webidl \
-#  TextTrackCueList.webidl \
-
 
 ifdef MOZ_WEBGL
 webidl_files += \
@@ -203,6 +197,15 @@ ifdef MOZ_B2G_RIL
 webidl_files += \
   USSDReceivedEvent.webidl \
   $(NULL)
+endif
+
+ifdef MOZ_WEBVTT
+webidl_files += \
+  HTMLTrackElement.webidl \
+  TextTrack.webidl \
+	TextTrackCue.webidl \
+	TextTrackCueList.webidl \
+	$(NULL)
 endif
 
 ifdef ENABLE_TESTS

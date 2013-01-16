@@ -7,10 +7,9 @@
  * http://www.whatwg.org/specs/web-apps/current-work/#texttrackcuelist
  */
 
-/*
 interface TextTrackCueList {
   readonly attribute unsigned long length;
   getter TextTrackCue (unsigned long index);
   TextTrackCue? getCueById(DOMString id);
 };
-*/
+

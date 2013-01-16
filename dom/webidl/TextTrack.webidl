@@ -7,7 +7,6 @@
  * http://www.whatwg.org/specs/web-apps/current-work/#texttrack
  */
 
-/*
 enum TextTrackMode { "disabled", "hidden", "showing" };
 
 interface TextTrack : EventTarget {
@@ -26,4 +25,3 @@ interface TextTrack : EventTarget {
 
            attribute EventHandler oncuechange;
 };
-*/
