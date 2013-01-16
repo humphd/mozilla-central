@@ -38,13 +38,14 @@
 #if !defined(nsWebVTTDecoder_h_)
 #define nsWebVTTDecoder_h_
 
-#include "nsBuiltinDecoder.h"
+#include "MediaDecoder.h"
+#include "MediaDecoderStateMachine.h"
 
-class nsWebVTTDecoder : public nsBuiltinDecoder
+class nsWebVTTDecoder : public mozilla::MediaDecoder
 {
 public:
-  virtual nsMediaDecoder* Clone() { return new nsWebVTTDecoder(); }
-  virtual nsDecoderStateMachine* CreateStateMachine();
+  virtual mozilla::MediaDecoder* Clone() { return new nsWebVTTDecoder(); }
+  virtual mozilla::MediaDecoderStateMachine* CreateStateMachine();
 };
 
 #endif

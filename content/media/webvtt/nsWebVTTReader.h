@@ -38,16 +38,16 @@
 #if !defined(nsWebVTTReader_h_)
 #define nsWebVTTReader_h_
 
-#include "nsBuiltinDecoderReader.h"
-#include "nsBuiltinDecoder.h"
+#include "MediaDecoderReader.h"
+#include "MediaDecoder.h"
 
-class nsWebVTTReader : public nsBuiltinDecoderReader
+class nsWebVTTReader : public mozilla::MediaDecoderReader
 {
 public:
-  nsWebVTTReader(nsBuiltinDecoder* aDecoder);
+  nsWebVTTReader(mozilla::MediaDecoder* aDecoder);
   ~nsWebVTTReader();
 
-  virtual nsresult Init(nsBuiltinDecoderReader* aCloneDonor);
+  virtual nsresult Init(mozilla::MediaDecoderReader* aCloneDonor);
   virtual nsresult ResetDecode();
   virtual bool DecodeAudioData();
   virtual bool DecodeVideoFrame(bool &aKeyframeSkip, PRInt64 aTimeThreshold);
@@ -64,7 +64,7 @@ public:
     return false;
   }
 
-  virtual nsresult ReadMetadata(nsVideoInfo* aInfo);
+  virtual nsresult ReadMetadata(mozilla::VideoInfo* aInfo, mozilla::MetadataTags** aTags);
   virtual nsresult Seek(PRInt64 aTime, PRInt64 aStartTime, PRInt64 aEndTime, PRInt64 aCurrentTime);
   virtual nsresult GetBuffered(nsTimeRanges* aBuffered, PRInt64 aStartTime);
 };

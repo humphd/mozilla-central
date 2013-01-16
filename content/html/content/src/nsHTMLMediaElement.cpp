@@ -10,7 +10,6 @@
 #include "base/basictypes.h"
 #include "nsIDOMHTMLMediaElement.h"
 #include "nsIDOMHTMLSourceElement.h"
-//#include "nsIDOMHTMLTrackElement.h"
 #include "nsTimeRanges.h"
 #include "nsGenericHTMLElement.h"
 #include "nsAttrValueInlines.h"
@@ -108,7 +107,7 @@
 #include "WMFDecoder.h"
 #endif
 #ifdef MOZ_WEBVTT
-//#include "WebVTTDecoder.h"
+#include "nsWebVTTDecoder.h"
 #endif
 
 #ifdef PR_LOGGING
@@ -3416,7 +3415,6 @@ void nsHTMLMediaElement::FireTimeUpdate(bool aPeriodic)
   }
 
   // HACK: update current text track cue from here
-/*XXXhumph:
   nsIFrame* frame = GetPrimaryFrame();
   if (frame && frame->GetType() == nsGkAtoms::HTMLVideoFrame) {
     nsIContent *overlay = static_cast<nsVideoFrame*>(frame)->GetCaptionOverlay();
@@ -3434,7 +3432,6 @@ void nsHTMLMediaElement::FireTimeUpdate(bool aPeriodic)
         "<p>%s</p>\n", time, text);
     div->SetInnerHTML(NS_ConvertUTF8toUTF16(timestring));
   }
-*/
 }
 
 void nsHTMLMediaElement::GetCurrentSpec(nsCString& aString)

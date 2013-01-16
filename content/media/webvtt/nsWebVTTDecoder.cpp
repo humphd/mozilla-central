@@ -36,11 +36,12 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#include "nsBuiltinDecoderStateMachine.h"
+#include "MediaDecoderStateMachine.h"
 #include "nsWebVTTDecoder.h"
 #include "nsWebVTTReader.h"
 
-nsDecoderStateMachine* nsWebVTTDecoder::CreateStateMachine()
+mozilla::MediaDecoderStateMachine*
+nsWebVTTDecoder::CreateStateMachine()
 {
-  return new nsBuiltinDecoderStateMachine(this, new nsWebVTTReader(this));
+  return new mozilla::MediaDecoderStateMachine(this, new nsWebVTTReader(this));
 }

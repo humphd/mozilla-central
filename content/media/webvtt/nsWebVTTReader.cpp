@@ -54,4 +54,12 @@ nsWebVTTReader::~nsWebVTTReader()
   MOZ_COUNT_DTOR(nsWebMReader);
 }
 
+nsresult
+nsWebVTTReader::ReadMetadata(mozilla::VideoInfo* aInfo,
+                             mozilla::MetadataTags** aTags)
+{
+  // TODO:
+  return NS_ERROR_NOT_IMPLEMENTED;
+}
+
 #endif /* nsWebVTTReader_h_ */
