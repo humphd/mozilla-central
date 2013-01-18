@@ -4,6 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+
+//XXXhumph: need to sort this out...
+/*
 #include "mozilla/dom/TextTrack.h"
 
 //#include "nsDOMClassInfoID.h"
@@ -28,3 +31,5 @@ NS_IMPL_CYCLE_COLLECTION_TRAVERSE_END
 
 } // namespace dom
 } // namespace mozilla
+
+*/

@@ -7,7 +7,8 @@
  * http://www.whatwg.org/specs/web-apps/current-work/#texttrack
  */
 
-enum TextTrackMode { "disabled", "hidden", "showing" };
+// XXXhumph: todo
+//enum TextTrackMode { "disabled", "hidden", "showing" };
 
 interface TextTrack : EventTarget {
   readonly attribute DOMString kind;
@@ -15,7 +16,8 @@ interface TextTrack : EventTarget {
   readonly attribute DOMString language;
   readonly attribute DOMString inBandMetadataTrackDispatchType;
 
-           attribute TextTrackMode mode;
+// XXXhumph: todo
+//           attribute TextTrackMode mode;
 
   readonly attribute TextTrackCueList? cues;
   readonly attribute TextTrackCueList? activeCues;
@@ -23,5 +25,6 @@ interface TextTrack : EventTarget {
   void addCue(TextTrackCue cue);
   void removeCue(TextTrackCue cue);
 
-           attribute EventHandler oncuechange;
+  // XXXhumph: not sure how to do this in cpp/h yet...
+  //         attribute EventHandler oncuechange;
 };

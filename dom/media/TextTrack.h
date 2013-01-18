@@ -7,30 +7,114 @@
 #ifndef mozilla_dom_TextTrack_h
 #define mozilla_dom_TextTrack_h
 
+#include "mozilla/dom/TextTrackCue.h"
+#include "mozilla/dom/TextTrackCueList.h"
+
 #include "nsCycleCollectionParticipant.h"
-#include "nsTraceRefcnt.h"
 
 namespace mozilla {
 namespace dom {
 
-class TextTrack MOZ_FINAL : public nsISupports
+class TextTrackCue;
+
+class TextTrack MOZ_FINAL : public nsISupports,
+                            public nsWrapperCache
 {
 public:
-  TextTrack()
+  NS_DECL_CYCLE_COLLECTING_ISUPPORTS
+  NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrack)
+
+  // TextTrack WebIDL
+  TextTrack(nsISupports *aParent) : mParent(aParent)
   {
-    MOZ_COUNT_CTOR(TextTrack);
+    SetIsDOMBinding();
   }
 
   ~TextTrack()
   {
-    MOZ_COUNT_DTOR(TextTrack);
+    mParent = nullptr;
   }
 
-  NS_DECL_CYCLE_COLLECTING_ISUPPORTS
-  NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrack)
+  virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
+                               bool* aTriedToWrap);
 
-// XXXhumph: do rest of decl for this...
+  nsISupports* GetParentObject()
+  {
+    return mParent;
+  }
 
+  void GetKind(nsAString& aKind)
+  {
+    aKind = mKind;
+  }
+
+  void GetLabel(nsAString& aLabel)
+  {
+    aLabel = mLabel;
+  }
+
+  void GetLanguage(nsAString& aLanguage)
+  {
+    aLanguage = mLanguage;
+  }
+
+  void GetInBandMetadataTrackDispatchType(nsAString& aType)
+  {
+    aType = mType;
+  }
+
+  TextTrackCueList*
+  GetCues()
+  {
+    // XXXhumph: todo
+    return nullptr;
+  }
+
+  TextTrackCueList*
+  GetActiveCues()
+  {
+    // XXXhumph: todo
+    return nullptr;
+  }
+
+
+/*
+  NS_IMETHOD GetKind(nsAString& aKind);
+  NS_IMETHOD GetLabel(nsAString& aLabel);
+  NS_IMETHOD GetLanguage(nsAString& aLanguage);
+  NS_IMETHOD GetInBandMetadataTrackDispatchType(nsAString& aInBandMetadataTrackDispatchType);
+*/
+
+// XXXhumph: todo
+//  NS_IMETHOD GetMode(TextTrackMode& aMode);
+//  NS_IMETHOD SetMode(const TextTrackMode& aMode);
+
+/*
+  NS_IMETHOD GetCues(TextTrackCueList& aCues);
+  NS_IMETHOD GetActiveCues(TextTrackCueList& aActiveCues);
+*/
+
+  void AddCue(TextTrackCue& cue)
+  {
+    // XXXhumph: todo
+  }
+
+  void RemoveCue(TextTrackCue& cue)
+  {
+    // XXXhumph: todo
+  }
+
+  // XXXhumph: need to do eventhandler stuff still, see webidl
+
+private:
+  nsCOMPtr<nsISupports> mParent;
+
+  nsString mKind;
+  nsString mLabel;
+  nsString mLanguage;
+  nsString mType;
+
+  // XXXhumph: need list of cues, active cues...
 };
 
 } // namespace dom

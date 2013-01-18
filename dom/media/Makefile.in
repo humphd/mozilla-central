@@ -42,15 +42,24 @@ EXPORTS_mozilla = \
   MediaManager.h \
   $(NULL)
 
+ifdef MOZ_WEBVTT
 EXPORTS_mozilla/dom = \
   TextTrack.h \
+  TextTrackCue.h \
+  TextTrackCueList.h \
   $(NULL)
+endif
 
 CPPSRCS = \
   MediaManager.cpp \
+  TextTrack.cpp \
   $(NULL)
-#XXXhumph:
-#  TextTrack.cpp \
+
+ifdef MOZ_WEBVTT
+CPPSRCS = \
+  TextTrack.cpp \
+  $(NULL)
+endif
 
 ifdef MOZ_WEBRTC
 LOCAL_INCLUDES += \

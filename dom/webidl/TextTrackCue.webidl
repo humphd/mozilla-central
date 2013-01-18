@@ -7,7 +7,8 @@
  * http://www.whatwg.org/specs/web-apps/current-work/#texttrackcue
  */
 
-enum AutoKeyword { "auto" };
+// XXXhumph: https://www.w3.org/Bugs/Public/show_bug.cgi?id=20651
+//enum AutoKeyword { "auto" };
 
 [Constructor(double startTime, double endTime, DOMString text)]
 interface TextTrackCue : EventTarget {
@@ -27,6 +28,7 @@ interface TextTrackCue : EventTarget {
            attribute DOMString text;
   DocumentFragment getCueAsHTML();
 
-           attribute EventHandler onenter;
-           attribute EventHandler onexit;
+// XXXhumph: todo
+//           attribute EventHandler onenter;
+//           attribute EventHandler onexit;
 };
