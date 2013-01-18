@@ -7,11 +7,16 @@
 #ifndef mozilla_dom_TextTrackCueList_h
 #define mozilla_dom_TextTrackCueList_h
 
+#include "mozilla/dom/TextTrackCue.h"
+#include "mozilla/dom/TextTrackCueListBinding.h"
 #include "nsWrapperCache.h"
 #include "nsCycleCollectionParticipant.h"
+#include "nsCOMPtr.h"
 
 namespace mozilla {
 namespace dom {
+
+class TextTrackCue;
 
 class TextTrackCueList MOZ_FINAL : public nsISupports,
                                    public nsWrapperCache
@@ -26,13 +31,16 @@ public:
     SetIsDOMBinding();
   }
 
-  ~TextTrackCueList()
+  virtual ~TextTrackCueList()
   {
     mParent = nullptr;
   }
 
-  virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
-                               bool* aTriedToWrap);
+  virtual JSObject*
+  WrapObject(JSContext* aCx, JSObject* aScope, bool* aTriedToWrap) MOZ_OVERRIDE
+  {
+    return TextTrackCueListBinding::Wrap(aCx, aScope, this, aTriedToWrap);
+  }
 
   nsISupports* GetParentObject()
   {

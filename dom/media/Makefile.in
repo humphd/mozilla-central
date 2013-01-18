@@ -52,12 +52,13 @@ endif
 
 CPPSRCS = \
   MediaManager.cpp \
-  TextTrack.cpp \
   $(NULL)
 
 ifdef MOZ_WEBVTT
 CPPSRCS = \
   TextTrack.cpp \
+  TextTrackCue.cpp \
+  TextTrackCueList.cpp \
   $(NULL)
 endif
 

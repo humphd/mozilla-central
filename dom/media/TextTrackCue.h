@@ -8,13 +8,15 @@
 #define mozilla_dom_TextTrackCue_h
 
 #include "mozilla/dom/TextTrack.h"
+#include "mozilla/dom/TextTrackCueBinding.h"
 #include "nsCycleCollectionParticipant.h"
-#include "nsTraceRefcnt.h"
 #include "mozilla/dom/DocumentFragment.h"
 #include "nsDOMEventTargetHelper.h"
 
 namespace mozilla {
 namespace dom {
+
+class TextTrack;
 
 class TextTrackCue MOZ_FINAL : public nsDOMEventTargetHelper
 {
@@ -55,7 +57,7 @@ public:
     SetIsDOMBinding();
   }
 
-  ~TextTrackCue()
+  virtual ~TextTrackCue()
   {
   }
 

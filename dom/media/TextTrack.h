@@ -7,10 +7,13 @@
 #ifndef mozilla_dom_TextTrack_h
 #define mozilla_dom_TextTrack_h
 
-#include "mozilla/dom/TextTrackCue.h"
-#include "mozilla/dom/TextTrackCueList.h"
-
+//#include "mozilla/dom/TextTrackBinding.h"
+#include "TextTrackCue.h"
+#include "TextTrackCueList.h"
+#include "nsWrapperCache.h"
 #include "nsCycleCollectionParticipant.h"
+#include "nsString.h"
+#include "nsCOMPtr.h"
 
 namespace mozilla {
 namespace dom {
@@ -24,16 +27,8 @@ public:
   NS_DECL_CYCLE_COLLECTING_ISUPPORTS
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrack)
 
-  // TextTrack WebIDL
-  TextTrack(nsISupports *aParent) : mParent(aParent)
-  {
-    SetIsDOMBinding();
-  }
-
-  ~TextTrack()
-  {
-    mParent = nullptr;
-  }
+  TextTrack(nsISupports *aParent);
+  ~TextTrack();
 
   virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
                                bool* aTriedToWrap);
@@ -76,23 +71,6 @@ public:
     // XXXhumph: todo
     return nullptr;
   }
-
-
-/*
-  NS_IMETHOD GetKind(nsAString& aKind);
-  NS_IMETHOD GetLabel(nsAString& aLabel);
-  NS_IMETHOD GetLanguage(nsAString& aLanguage);
-  NS_IMETHOD GetInBandMetadataTrackDispatchType(nsAString& aInBandMetadataTrackDispatchType);
-*/
-
-// XXXhumph: todo
-//  NS_IMETHOD GetMode(TextTrackMode& aMode);
-//  NS_IMETHOD SetMode(const TextTrackMode& aMode);
-
-/*
-  NS_IMETHOD GetCues(TextTrackCueList& aCues);
-  NS_IMETHOD GetActiveCues(TextTrackCueList& aActiveCues);
-*/
 
   void AddCue(TextTrackCue& cue)
   {
