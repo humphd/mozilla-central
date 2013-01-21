@@ -9,18 +9,11 @@
 #include "nsIDOMHTMLElement.h"
 #include "nsIDOMEventTarget.h"
 #include "nsGenericHTMLElement.h"
+#include "nsIContent.h"
 #include "nsIDocument.h"
 #include "nsIHttpChannel.h"
 #include "nsGkAtoms.h"
 #include "mozilla/dom/TextTrack.h"
-
-#ifdef PR_LOGGING
-#warning enabling nspr logging
-static PRLogModuleInfo* gTrackElementLog;
-#define LOG(type, msg) PR_LOG(gTrackElementLog, type, msg)
-#else
-#define LOG(type, msg)
-#endif
 
 namespace mozilla {
 namespace dom {
@@ -122,6 +115,8 @@ protected:
 
   class LoadListener;
   PRUint32 mCurrentLoadID;
+  nsCOMPtr<nsIChannel> mChannel;
+  nsCOMPtr<nsIContent> mMediaParent;
   uint16_t mReadyState;
   bool mDefault;
 

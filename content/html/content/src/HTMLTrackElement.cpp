@@ -20,6 +20,7 @@
 #include "nsICachingChannel.h"
 #include "nsHTMLMediaElement.h"
 #include "nsIHttpChannel.h"
+#include "nsNetUtil.h"
 #include "nsIStreamListener.h"
 #include "nsIChannelEventSink.h"
 #include "nsIChannelPolicy.h"
@@ -33,23 +34,31 @@
 #include "nsVideoFrame.h"
 #include "webvtt.h"
 
+#ifdef PR_LOGGING
+#warning enabling nspr logging
+static PRLogModuleInfo* gTrackElementLog;
+#define LOG(type, msg) PR_LOG(gTrackElementLog, type, msg)
+#else
+#define LOG(type, msg)
+#endif
+
 NS_IMPL_NS_NEW_HTML_ELEMENT(Track)
 
 namespace mozilla {
 namespace dom {
 
 /** Channel Listener helper class */
-class HTMLTrackElement::LoadListener : public nsIStreamListener,
-                                       public nsIChannelEventSink,
-                                       public nsIInterfaceRequestor,
-                                       public nsIObserver
+class HTMLTrackElement::LoadListener MOZ_FINAL : public nsIStreamListener,
+                                                 public nsIChannelEventSink,
+                                                 public nsIInterfaceRequestor,
+                                                 public nsIObserver
 {
   NS_DECL_ISUPPORTS
   NS_DECL_NSIREQUESTOBSERVER
   NS_DECL_NSISTREAMLISTENER
   NS_DECL_NSICHANNELEVENTSINK
-  NS_DECL_NSIINTERFACEREQUESTOR
   NS_DECL_NSIOBSERVER
+  NS_DECL_NSIINTERFACEREQUESTOR
 
 public:
   LoadListener(HTMLTrackElement *aElement)
@@ -62,48 +71,12 @@ public:
 private:
   nsRefPtr<HTMLTrackElement> mElement;
   nsCOMPtr<nsIStreamListener> mNextListener;
-  PRUint32 mLoadID;
+  uint32_t mLoadID;
 };
 
 NS_IMPL_ISUPPORTS5(HTMLTrackElement::LoadListener, nsIRequestObserver,
                    nsIStreamListener, nsIChannelEventSink,
                    nsIInterfaceRequestor, nsIObserver)
-
-
-HTMLTrackElement::HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
-    : nsGenericHTMLElement(aNodeInfo)
-{
-#ifdef PR_LOGGING
-  if (!gTrackElementLog) {
-    gTrackElementLog = PR_NewLogModule("nsTrackElement");
-  }
-#endif
-
-  SetIsDOMBinding();
-}
-
-
-HTMLTrackElement::~HTMLTrackElement()
-{
-}
-
-NS_IMPL_ADDREF_INHERITED(HTMLTrackElement, Element)
-NS_IMPL_RELEASE_INHERITED(HTMLTrackElement, Element)
-
-NS_INTERFACE_TABLE_HEAD(HTMLTrackElement)
-  NS_HTML_CONTENT_INTERFACE_TABLE1(HTMLTrackElement,
-                                   nsIDOMHTMLElement)
-  NS_HTML_CONTENT_INTERFACE_TABLE_TO_MAP_SEGUE(HTMLTrackElement,
-                                               nsGenericHTMLElement)
-NS_HTML_CONTENT_INTERFACE_MAP_END
-
-NS_IMPL_ELEMENT_CLONE(HTMLTrackElement)
-
-JSObject*
-HTMLTrackElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
-{
-  return HTMLTrackElementBinding::Wrap(cx, scope, this, triedToWrap);
-}
 
 NS_IMETHODIMP
 HTMLTrackElement::LoadListener::Observe(nsISupports* aSubject,
@@ -139,13 +112,13 @@ NS_IMETHODIMP
 HTMLTrackElement::LoadListener::OnDataAvailable(nsIRequest* aRequest,
                                                 nsISupports *aContext,
                                                 nsIInputStream* aStream,
-                                                PRUint32 aOffset,
-                                                PRUint32 aCount)
+                                                uint64_t aOffset,
+                                                uint32_t aCount)
 {
-  printf("Track got data! %u bytes at offset %u\n", aCount, aOffset);
+  printf("Track got data! %u bytes at offset %llu\n", aCount, aOffset);
 
   nsresult rv;
-  PRUint32 available;
+  uint64_t available;
   bool blocking;
 
   rv = aStream->IsNonBlocking(&blocking);
@@ -158,11 +131,11 @@ HTMLTrackElement::LoadListener::OnDataAvailable(nsIRequest* aRequest,
 
   rv = aStream->Available(&available);
   NS_ENSURE_SUCCESS(rv, rv);
-  printf("Track has %u bytes available\n", available);
+  printf("Track has %llu bytes available\n", available);
 
   char *buf = (char *)malloc(aCount);
   if (buf) {
-    PRUint32 read;
+    uint32_t read;
     rv = aStream->Read(buf, aCount, &read);
     NS_ENSURE_SUCCESS(rv, rv);
     if (read >= aCount)
@@ -199,7 +172,7 @@ NS_IMETHODIMP
 HTMLTrackElement::LoadListener::AsyncOnChannelRedirect(
                         nsIChannel* aOldChannel,
                         nsIChannel* aNewChannel,
-                        PRUint32 aFlags,
+                        uint32_t aFlags,
                         nsIAsyncVerifyRedirectCallback* cb)
 {
   return NS_OK;
@@ -210,6 +183,43 @@ HTMLTrackElement::LoadListener::GetInterface(const nsIID &aIID,
                                              void **aResult)
 {
   return QueryInterface(aIID, aResult);
+}
+
+
+
+HTMLTrackElement::HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
+    : nsGenericHTMLElement(aNodeInfo)
+{
+#ifdef PR_LOGGING
+  if (!gTrackElementLog) {
+    gTrackElementLog = PR_NewLogModule("nsTrackElement");
+  }
+#endif
+
+  SetIsDOMBinding();
+}
+
+
+HTMLTrackElement::~HTMLTrackElement()
+{
+}
+
+NS_IMPL_ADDREF_INHERITED(HTMLTrackElement, Element)
+NS_IMPL_RELEASE_INHERITED(HTMLTrackElement, Element)
+
+NS_INTERFACE_TABLE_HEAD(HTMLTrackElement)
+  NS_HTML_CONTENT_INTERFACE_TABLE1(HTMLTrackElement,
+                                   nsIDOMHTMLElement)
+  NS_HTML_CONTENT_INTERFACE_TABLE_TO_MAP_SEGUE(HTMLTrackElement,
+                                               nsGenericHTMLElement)
+NS_HTML_CONTENT_INTERFACE_MAP_END
+
+NS_IMPL_ELEMENT_CLONE(HTMLTrackElement)
+
+JSObject*
+HTMLTrackElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
+{
+  return HTMLTrackElementBinding::Wrap(cx, scope, this, triedToWrap);
 }
 
 nsresult
@@ -267,11 +277,11 @@ HTMLTrackElement::LoadResource(nsIURI* aURI)
     mChannel = nullptr;
   }
 
-  PRInt16 shouldLoad = nsIContentPolicy::ACCEPT;
+  int16_t shouldLoad = nsIContentPolicy::ACCEPT;
   rv = NS_CheckContentLoadPolicy(nsIContentPolicy::TYPE_MEDIA,
                                  aURI,
                                  NodePrincipal(),
-                                 static_cast<nsGenericElement*>(this),
+                                 static_cast<nsGenericHTMLElement*>(this),
                                  EmptyCString(), // mime type
                                  nullptr, // extra
                                  &shouldLoad,
@@ -323,12 +333,13 @@ HTMLTrackElement::BindToTree(nsIDocument *aDocument,
                              nsIContent *aParent,
                              nsIContent *aBindingParent,
                              bool aCompileEventHandlers)
-
+{
   nsresult rv = nsGenericHTMLElement::BindToTree(aDocument,
                                                  aParent,
                                                  aBindingParent,
                                                  aCompileEventHandlers);
-  NS_ENSURE_SUCCESS(rv, rv);
+  if(NS_FAILED(rv))
+    return rv;
 
   LOG(PR_LOG_DEBUG, ("Track Element bound to tree."));
   fprintf(stderr, "Track element bound to tree.\n");
