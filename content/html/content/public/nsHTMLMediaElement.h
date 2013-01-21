@@ -27,8 +27,8 @@
 #include "DecoderTraits.h"
 #include "MediaMetadataManager.h"
 #include "AudioChannelAgent.h"
-//XXXhumph:
-//#include "nsTextTrack.h"
+//XXXhumph: commented out in rillian's original...
+//#include "mozilla/dom/TextTrack.h"
 #include "webvtt.h"
 
 // Define to output information on decoding and painting framerate
@@ -911,7 +911,7 @@ protected:
 
   //XXXhumph: commented out in ralph's original patch
   // Contains a list of our attached text track objects.
-  //nsTArray<nsCOMPtr<nsTextTrack>> mTextTracks;
+  //nsTArray<nsRefPtr<TextTrack>> mTextTracks;
 
 public:
   webvtt_cue *mCues;
