@@ -40,7 +40,6 @@ public:
     return ttcue.forget();
   }
 
-  // XXXhumph: move this to .cpp
   TextTrackCue(nsISupports* aGlobal);
   ~TextTrackCue();
 
