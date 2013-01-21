@@ -22,6 +22,7 @@ class TextTrackCue MOZ_FINAL : public nsDOMEventTargetHelper
 public:
   NS_DECL_ISUPPORTS_INHERITED
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrackCue)
+  NS_FORWARD_NSIDOMEVENTTARGET(nsDOMEventTargetHelper::)
 
   // TextTrackCue WebIDL
   static already_AddRefed<TextTrackCue>

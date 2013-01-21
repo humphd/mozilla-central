@@ -28,7 +28,9 @@ interface TextTrackCue : EventTarget {
            attribute DOMString text;
   DocumentFragment getCueAsHTML();
 
-// XXXhumph: todo
-//           attribute EventHandler onenter;
-//           attribute EventHandler onexit;
+           [SetterThrows]
+           attribute EventHandler onenter;
+
+           [SetterThrows]
+           attribute EventHandler onexit;
 };
