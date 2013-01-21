@@ -35,27 +35,26 @@ XPIDLSRCS = \
 
 EXPORTS_NAMESPACES = \
 	mozilla \
-	mozilla/dom \
 	$(NULL)
 
 EXPORTS_mozilla = \
   MediaManager.h \
   $(NULL)
 
-ifdef MOZ_WEBVTT
-EXPORTS_mozilla/dom = \
-  TextTrack.h \
-  TextTrackCue.h \
-  TextTrackCueList.h \
-  $(NULL)
-endif
-
 CPPSRCS = \
   MediaManager.cpp \
   $(NULL)
 
 ifdef MOZ_WEBVTT
-CPPSRCS = \
+EXPORTS_NAMESPACES += \
+	mozilla/dom \
+	$(NULL)
+EXPORTS_mozilla/dom = \
+  TextTrack.h \
+  TextTrackCue.h \
+  TextTrackCueList.h \
+  $(NULL)
+CPPSRCS += \
   TextTrack.cpp \
   TextTrackCue.cpp \
   TextTrackCueList.cpp \

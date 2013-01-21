@@ -7,10 +7,9 @@
 #ifndef mozilla_dom_TextTrackCueList_h
 #define mozilla_dom_TextTrackCueList_h
 
-#include "mozilla/dom/TextTrackCue.h"
-#include "mozilla/dom/TextTrackCueListBinding.h"
 #include "nsWrapperCache.h"
 #include "nsCycleCollectionParticipant.h"
+#include "TextTrackCue.h"
 #include "nsCOMPtr.h"
 
 namespace mozilla {
@@ -18,6 +17,7 @@ namespace dom {
 
 class TextTrackCue;
 
+// XXXhumph: should this follow what MediaStreamList does, and use NonRefcountedDOMObject?
 class TextTrackCueList MOZ_FINAL : public nsISupports,
                                    public nsWrapperCache
 {
@@ -26,21 +26,10 @@ public:
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrackCueList)
 
   // TextTrackCueList WebIDL
-  TextTrackCueList(nsISupports *aParent) : mParent(aParent)
-  {
-    SetIsDOMBinding();
-  }
-
-  virtual ~TextTrackCueList()
-  {
-    mParent = nullptr;
-  }
-
-  virtual JSObject*
-  WrapObject(JSContext* aCx, JSObject* aScope, bool* aTriedToWrap) MOZ_OVERRIDE
-  {
-    return TextTrackCueListBinding::Wrap(aCx, aScope, this, aTriedToWrap);
-  }
+  TextTrackCueList(nsISupports *aParent);
+  ~TextTrackCueList();
+  virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
+                               bool* aTriedToWrap);
 
   nsISupports* GetParentObject()
   {

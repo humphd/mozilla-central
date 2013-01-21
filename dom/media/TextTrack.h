@@ -19,6 +19,7 @@ namespace mozilla {
 namespace dom {
 
 class TextTrackCue;
+class TextTrackCueList;
 
 class TextTrack MOZ_FINAL : public nsISupports,
                             public nsWrapperCache

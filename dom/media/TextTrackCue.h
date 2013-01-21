@@ -7,8 +7,7 @@
 #ifndef mozilla_dom_TextTrackCue_h
 #define mozilla_dom_TextTrackCue_h
 
-#include "mozilla/dom/TextTrack.h"
-#include "mozilla/dom/TextTrackCueBinding.h"
+#include "TextTrack.h"
 #include "nsCycleCollectionParticipant.h"
 #include "mozilla/dom/DocumentFragment.h"
 #include "nsDOMEventTargetHelper.h"
@@ -41,31 +40,14 @@ public:
   }
 
   // XXXhumph: move this to .cpp
-  void
-  Init(const double aStartTime, const double aEndTime, const nsAString& aText,
-       ErrorResult& aRv)
-  {
-    // XXXhumph: validation...
-    mStartTime = aStartTime;
-    mEndTime = aEndTime;
-    mText = aText;
-  }
+  TextTrackCue(nsISupports* aGlobal);
+  ~TextTrackCue();
 
-  TextTrackCue(nsISupports* aGlobal)
-  {
-    MOZ_ASSERT(aGlobal);
-    SetIsDOMBinding();
-  }
+  void Init(const double aStartTime, const double aEndTime,
+            const nsAString& aText, ErrorResult& aRv);
 
-  virtual ~TextTrackCue()
-  {
-  }
-
-  virtual JSObject*
-  WrapObject(JSContext* aCx, JSObject* aScope, bool* aTriedToWrap) MOZ_OVERRIDE
-  {
-    return TextTrackCueBinding::Wrap(aCx, aScope, this, aTriedToWrap);
-  }
+  virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
+                               bool* aTriedToWrap);
 
   nsISupports*
   GetParentObject()
@@ -192,14 +174,6 @@ public:
 
   IMPL_EVENT_HANDLER(enter)
   IMPL_EVENT_HANDLER(exit)
-
-
-/*
-  NS_IMETHOD GetId(nsAString& aId);
-  NS_IMETHOD SetId(const nsAString& aId);
-  NS_IMETHOD GetStartTime(double& aStartTime);
-  NS_IMETHOD SetStartTime(const double& aStartTime);
-*/
 
 private:
   nsCOMPtr<nsISupports> mGlobal;
