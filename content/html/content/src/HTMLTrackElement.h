@@ -9,8 +9,18 @@
 #include "nsIDOMHTMLElement.h"
 #include "nsIDOMEventTarget.h"
 #include "nsGenericHTMLElement.h"
+#include "nsIDocument.h"
+#include "nsIHttpChannel.h"
 #include "nsGkAtoms.h"
 #include "mozilla/dom/TextTrack.h"
+
+#ifdef PR_LOGGING
+#warning enabling nspr logging
+static PRLogModuleInfo* gTrackElementLog;
+#define LOG(type, msg) PR_LOG(gTrackElementLog, type, msg)
+#else
+#define LOG(type, msg)
+#endif
 
 namespace mozilla {
 namespace dom {
@@ -21,11 +31,7 @@ class HTMLTrackElement : public nsGenericHTMLElement,
                          public nsIDOMHTMLElement
 {
 public:
-  HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
-    : nsGenericHTMLElement(aNodeInfo)
-  {
-    SetIsDOMBinding();
-  }
+  HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo);
   virtual ~HTMLTrackElement();
 
   // nsISupports
@@ -99,15 +105,28 @@ public:
   }
 
   virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
+  virtual nsresult SetAcceptHeader(nsIHttpChannel* aChannel);
   virtual nsIDOMNode* AsDOMNode() { return this; }
+
+  // Override BindToTree() so that we can trigger a load when we add a
+  // child track element.
+  virtual nsresult BindToTree(nsIDocument *aDocument, nsIContent *aParent,
+                              nsIContent *aBindingParent,
+                              bool aCompileEventHandlers);
+
+  PRUint32 GetCurrentLoadID() { return mCurrentLoadID; }
 
 protected:
   virtual JSObject* WrapNode(JSContext *aCx, JSObject *aScope,
                              bool *aTriedToWrap) MOZ_OVERRIDE;
 
-private:
+  class LoadListener;
+  PRUint32 mCurrentLoadID;
   uint16_t mReadyState;
   bool mDefault;
+
+  nsresult NewURIFromString(const nsAutoString& aURISpec, nsIURI** aURI);
+  nsresult LoadResource(nsIURI* aURI);
 };
 
 } // namespace dom
