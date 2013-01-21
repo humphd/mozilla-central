@@ -8,20 +8,21 @@
  */
 
 interface HTMLTrackElement : HTMLElement {
+           [SetterThrows]
            attribute DOMString kind;
+           [SetterThrows]
            attribute DOMString src;
+           [SetterThrows]
            attribute DOMString srclang;
+           [SetterThrows]
            attribute DOMString label;
-// TODOhumph
-//           attribute boolean default;
+           attribute boolean default;
 
   const unsigned short NONE = 0;
   const unsigned short LOADING = 1;
   const unsigned short LOADED = 2;
   const unsigned short ERROR = 3;
-// TODOhumph
-//  readonly attribute unsigned short readyState;
+  readonly attribute unsigned short readyState;
 
-// TODOhumph
-//  readonly attribute TextTrack track;
+  readonly attribute TextTrack track;
 };

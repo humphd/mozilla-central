@@ -10,9 +10,12 @@
 #include "nsIDOMEventTarget.h"
 #include "nsGenericHTMLElement.h"
 #include "nsGkAtoms.h"
+#include "mozilla/dom/TextTrack.h"
 
 namespace mozilla {
 namespace dom {
+
+class TextTrack;
 
 class HTMLTrackElement : public nsGenericHTMLElement,
                          public nsIDOMHTMLElement
@@ -36,16 +39,6 @@ public:
 
   // nsIDOMHTMLElement
   NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC
-
-  // nsIDOMHTMLTrackElement
-  NS_IMETHOD GetKind(nsAString& aKind);
-  NS_IMETHOD SetKind(const nsAString& aKind);
-  NS_IMETHOD GetSrc(nsAString& aSrc);
-  NS_IMETHOD SetSrc(const nsAString& aSrc);
-  NS_IMETHOD GetSrclang(nsAString& aSrclang);
-  NS_IMETHOD SetSrclang(const nsAString& aSrclang);
-  NS_IMETHOD GetLabel(nsAString& aLabel);
-  NS_IMETHOD SetLabel(const nsAString& aLabel);
 
   // HTMLTrackElement WebIDL
   void GetKind(nsString& aKind)
@@ -84,12 +77,37 @@ public:
     SetHTMLAttr(nsGkAtoms::label, aLabel, aError);
   }
 
+  bool Default()
+  {
+    return mDefault;
+  }
+
+  void SetDefault(bool aDefault)
+  {
+    mDefault = aDefault;
+  }
+
+  uint16_t ReadyState()
+  {
+    return mReadyState;
+  }
+
+  TextTrack* Track()
+  {
+    // XXXhumph: todo
+    return nullptr;
+  }
+
   virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
   virtual nsIDOMNode* AsDOMNode() { return this; }
 
 protected:
   virtual JSObject* WrapNode(JSContext *aCx, JSObject *aScope,
                              bool *aTriedToWrap) MOZ_OVERRIDE;
+
+private:
+  uint16_t mReadyState;
+  bool mDefault;
 };
 
 } // namespace dom
