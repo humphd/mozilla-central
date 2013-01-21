@@ -9,7 +9,6 @@
 #include "nsContentUtils.h"
 
 NS_IMPL_NS_NEW_HTML_ELEMENT(Track)
-//DOMCI_NODE_DATA(HTMLTrackElement, mozilla::dom::HTMLTrackElement)
 
 namespace mozilla {
 namespace dom {

@@ -10,9 +10,6 @@
 #include "nsIDOMEventTarget.h"
 #include "nsGenericHTMLElement.h"
 #include "nsGkAtoms.h"
-//#include "nsStyleConsts.h"
-//#include "nsIAtom.h"
-//#include "nsRuleData.h"
 
 namespace mozilla {
 namespace dom {
@@ -88,7 +85,6 @@ public:
   }
 
   virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
-//  virtual nsXPCClassInfo* GetClassInfo();
   virtual nsIDOMNode* AsDOMNode() { return this; }
 
 protected:
