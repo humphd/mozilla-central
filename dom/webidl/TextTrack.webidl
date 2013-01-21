@@ -25,6 +25,6 @@ interface TextTrack : EventTarget {
   void addCue(TextTrackCue cue);
   void removeCue(TextTrackCue cue);
 
-  // XXXhumph: not sure how to do this in cpp/h yet...
-  //         attribute EventHandler oncuechange;
+           [SetterThrows]
+           attribute EventHandler oncuechange;
 };

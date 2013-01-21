@@ -12,6 +12,7 @@
 #include "TextTrackCueList.h"
 #include "nsWrapperCache.h"
 #include "nsCycleCollectionParticipant.h"
+#include "nsDOMEventTargetHelper.h"
 #include "nsString.h"
 #include "nsCOMPtr.h"
 
@@ -21,12 +22,12 @@ namespace dom {
 class TextTrackCue;
 class TextTrackCueList;
 
-class TextTrack MOZ_FINAL : public nsISupports,
-                            public nsWrapperCache
+class TextTrack MOZ_FINAL : public nsDOMEventTargetHelper
 {
 public:
-  NS_DECL_CYCLE_COLLECTING_ISUPPORTS
+  NS_DECL_ISUPPORTS_INHERITED
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrack)
+  NS_FORWARD_NSIDOMEVENTTARGET(nsDOMEventTargetHelper::)
 
   TextTrack(nsISupports *aParent);
   ~TextTrack();
@@ -83,7 +84,7 @@ public:
     // XXXhumph: todo
   }
 
-  // XXXhumph: need to do eventhandler stuff still, see webidl
+  IMPL_EVENT_HANDLER(cuechange)
 
 private:
   nsCOMPtr<nsISupports> mParent;
