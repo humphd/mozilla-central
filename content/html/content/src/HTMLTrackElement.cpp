@@ -42,6 +42,15 @@ static PRLogModuleInfo* gTrackElementLog;
 #define LOG(type, msg)
 #endif
 
+// XXXhumph: doing this manually, since
+// NS_IMPL_NS_NEW_HTML_ELEMENT(Track) assumes names with nsHTML* vs. HTML*
+nsGenericHTMLElement*
+NS_NewHTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo,
+                       mozilla::dom::FromParser aFromParser)
+{
+  return new mozilla::dom::HTMLTrackElement(aNodeInfo);
+}
+
 namespace mozilla {
 namespace dom {
 
@@ -185,8 +194,6 @@ HTMLTrackElement::LoadListener::GetInterface(const nsIID &aIID,
 
 
 /** HTMLTrackElement */
-NS_IMPL_NS_NEW_HTML_ELEMENT(Track)
-
 HTMLTrackElement::HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
     : nsGenericHTMLElement(aNodeInfo)
 {
@@ -198,7 +205,6 @@ HTMLTrackElement::HTMLTrackElement(already_AddRefed<nsINodeInfo> aNodeInfo)
 
   SetIsDOMBinding();
 }
-
 
 HTMLTrackElement::~HTMLTrackElement()
 {

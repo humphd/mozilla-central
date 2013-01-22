@@ -20,6 +20,11 @@ namespace dom {
 
 class TextTrack;
 
+/**
+ * XXXhumph: there are some places where HTMLElements are assumed to be named
+ * using nsHTML*Element as the prefix vs. HTML*Element.  For example, see:
+ * NS_IMPL_NS_NEW_HTML_ELEMENT in content/html/content/src/nsGenericHTMLElement.h.
+ */
 class HTMLTrackElement : public nsGenericHTMLElement,
                          public nsIDOMHTMLElement
 {
