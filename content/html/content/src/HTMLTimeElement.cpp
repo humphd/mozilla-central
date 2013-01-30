@@ -9,8 +9,6 @@
 #include "nsGenericHTMLElement.h"
 #include "nsGkAtoms.h"
 
-// XXXhumph: doing this manually, since
-// NS_IMPL_NS_NEW_HTML_ELEMENT(Track) assumes names with nsHTML* vs. HTML*
 nsGenericHTMLElement*
 NS_NewHTMLTimeElement(already_AddRefed<nsINodeInfo> aNodeInfo,
                        mozilla::dom::FromParser aFromParser)
@@ -47,18 +45,6 @@ JSObject*
 HTMLTimeElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
 {
   return HTMLTimeElementBinding::Wrap(cx, scope, this, triedToWrap);
-}
-
-bool
-HTMLTimeElement::ParseAttribute(int32_t aNamespaceID, nsIAtom* aAttribute,
-                                const nsAString& aValue, nsAttrValue& aResult)
-{
-  if (aAttribute == nsGkAtoms::datetime) {
-//XXX parse date out
-//    return aResult.ParseSpecialIntValue(aValue);
-  }
-  return nsGenericHTMLElement::ParseAttribute(aNamespaceID, aAttribute,
-                                              aValue, aResult);
 }
 
 } // namespace dom
