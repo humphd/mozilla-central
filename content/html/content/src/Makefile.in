@@ -136,6 +136,7 @@ CPPSRCS		= \
 		HTMLTableRowElement.cpp \
 		HTMLTableSectionElement.cpp \
 		HTMLTextAreaElement.cpp \
+		nsHTMLTimeElement.cpp \
 		HTMLTitleElement.cpp \
 		HTMLUnknownElement.cpp \
 		ValidityState.cpp \
