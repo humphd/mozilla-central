@@ -11,7 +11,7 @@
 
 nsGenericHTMLElement*
 NS_NewHTMLTimeElement(already_AddRefed<nsINodeInfo> aNodeInfo,
-                       mozilla::dom::FromParser aFromParser)
+                      mozilla::dom::FromParser aFromParser)
 {
   return new mozilla::dom::HTMLTimeElement(aNodeInfo);
 }
