@@ -20,7 +20,7 @@ namespace mozilla {
 namespace dom {
 
 HTMLTimeElement::HTMLTimeElement(already_AddRefed<nsINodeInfo> aNodeInfo)
-    : nsGenericHTMLElement(aNodeInfo)
+  : nsGenericHTMLElement(aNodeInfo)
 {
   SetIsDOMBinding();
 }
