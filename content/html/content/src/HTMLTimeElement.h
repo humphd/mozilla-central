@@ -8,11 +8,6 @@
 
 #include "nsIDOMHTMLElement.h"
 #include "nsGenericHTMLElement.h"
-
-//#include "nsIContent.h"
-//#include "nsIDocument.h"
-#include "nsIHttpChannel.h"
-
 #include "nsGkAtoms.h"
 
 namespace mozilla {
@@ -43,13 +38,12 @@ public:
     GetHTMLAttr(nsGkAtoms::datetime, aDatetime);
   }
 
-  void SetDatetime(const nsAString& aKind, mozilla::ErrorResult& aError)
+  void SetDatetime(const nsAString& aDatetime, mozilla::ErrorResult& aError)
   {
     SetHTMLAttr(nsGkAtoms::datetime, aDatetime, aError);
   }
 
   virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
-  virtual nsresult SetAcceptHeader(nsIHttpChannel* aChannel);
   virtual nsIDOMNode* AsDOMNode() { return this; }
 
 protected:
