@@ -9,6 +9,7 @@
 #include "nsIDOMHTMLElement.h"
 #include "nsGenericHTMLElement.h"
 #include "nsGkAtoms.h"
+#include "prtime.h"
 
 namespace mozilla {
 namespace dom {
@@ -41,7 +42,16 @@ public:
   void SetDatetime(const nsAString& aDatetime, mozilla::ErrorResult& aError)
   {
     SetHTMLAttr(nsGkAtoms::datetime, aDatetime, aError);
+
+    PRTime t;
+    PR_ParseTimeString(NS_ConvertUTF16toUTF8(aDatetime).get(), true, &t);
+    fprintf(stderr, "\n\naDatetime %s\n\n", NS_ConvertUTF16toUTF8(aDatetime).get());
   }
+
+  virtual bool ParseAttribute(int32_t aNamespaceID,
+                              nsIAtom* aAttribute,
+                              const nsAString& aValue,
+                              nsAttrValue& aResult);
 
   virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
   virtual nsIDOMNode* AsDOMNode() { return this; }

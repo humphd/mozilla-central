@@ -49,5 +49,17 @@ HTMLTimeElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
   return HTMLTimeElementBinding::Wrap(cx, scope, this, triedToWrap);
 }
 
+bool
+HTMLTimeElement::ParseAttribute(int32_t aNamespaceID, nsIAtom* aAttribute,
+                                const nsAString& aValue, nsAttrValue& aResult)
+{
+  if (aAttribute == nsGkAtoms::datetime) {
+//XXX parse date out
+//    return aResult.ParseSpecialIntValue(aValue);
+  }
+  return nsGenericHTMLElement::ParseAttribute(aNamespaceID, aAttribute,
+                                              aValue, aResult);
+}
+
 } // namespace dom
 } // namespace mozilla
