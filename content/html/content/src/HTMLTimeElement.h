@@ -33,22 +33,22 @@ public:
   NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC
 
   // HTMLTimeElement WebIDL
-  void GetDatetime(nsString& aDatetime)
+  void GetDatetime(nsAString& aDatetime)
   {
     GetHTMLAttr(nsGkAtoms::datetime, aDatetime);
   }
 
-  void SetDatetime(const nsAString& aDatetime, mozilla::ErrorResult& aError)
+  void SetDatetime(const nsAString& aDatetime)
   {
-    SetHTMLAttr(nsGkAtoms::datetime, aDatetime, aError);
+    SetHTMLAttr(nsGkAtoms::datetime, aDatetime);
   }
 
-  virtual nsresult Clone(nsINodeInfo *aNodeInfo, nsINode **aResult) const;
+  virtual nsresult Clone(nsINodeInfo* aNodeInfo, nsINode** aResult) const;
   virtual nsIDOMNode* AsDOMNode() { return this; }
 
 protected:
-  virtual JSObject* WrapNode(JSContext *aCx, JSObject *aScope,
-                             bool *aTriedToWrap) MOZ_OVERRIDE;
+  virtual JSObject* WrapNode(JSContext* aCx, JSObject* aScope,
+                             bool* aTriedToWrap) MOZ_OVERRIDE;
 };
 
 } // namespace dom

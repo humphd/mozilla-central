@@ -9,6 +9,5 @@
  */
 
 interface HTMLTimeElement : HTMLElement {
-           [SetterThrows]
            attribute DOMString datetime;
 };
