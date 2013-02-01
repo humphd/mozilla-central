@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<!--
+https://bugzilla.mozilla.org/show_bug.cgi?id=629801
+-->
+<head>
+  <title>Test for Bug 629801</title>
+  <script type="application/javascript" src="/tests/SimpleTest/SimpleTest.js"></script>
+  <script type="application/javascript" src="reflect.js"></script>
+  <link rel="stylesheet" type="text/css" href="/tests/SimpleTest/test.css"/>
+</head>
+<body>
+<a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=629801">Mozilla Bug 629801</a>
+<p id="display"></p>
+<div id="content" style="display: none">
+
+<time id="t1" datetime="2011-11-12">a time</time>
+
+</div>
+<pre id="test">
+<script type="application/javascript">
+
+/** Test for Bug 629801 **/
+
+var t1 = document.getElementById('t1'),
+    t2 = document.createElement('time');
+
+is(t1.datetime, "2011-11-12", "datetime is properly set");
+
+reflectString({
+  element: t2,
+  attribute: "datetime"
+});
+
+</script>
+</pre>
+</body>
+</html>
