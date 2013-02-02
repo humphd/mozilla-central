@@ -24,171 +24,82 @@ public:
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(TextTrackCue)
   NS_FORWARD_NSIDOMEVENTTARGET(nsDOMEventTargetHelper::)
 
-  // TextTrackCue WebIDL
-  static already_AddRefed<TextTrackCue>
-  Constructor(nsISupports* aGlobal,
-	      const double aStartTime,
-	      const double aEndTime,
-	      const nsAString& aText,
-	      ErrorResult& aRv)
-  {
-    nsRefPtr<TextTrackCue> ttcue = new TextTrackCue(aGlobal);
-    ttcue->Init(aStartTime, aEndTime, aText, aRv);
-    if (aRv.Failed()) {
-      return nullptr;
-    }
-    return ttcue.forget();
-  }
-
-  TextTrackCue(nsISupports* aGlobal);
+  TextTrackCue(nsISupports* aGlobal,  const double aStartTime,
+               const double aEndTime, const nsAString& aText);
   ~TextTrackCue();
 
-  void Init(const double aStartTime, const double aEndTime,
-	    const nsAString& aText, ErrorResult& aRv);
+  static already_AddRefed<TextTrackCue>
+  Constructor(nsISupports* aGlobal,  const double aStartTime,
+              const double aEndTime, const nsAString& aText,
+              ErrorResult& aRv)
+  {
+    return new TextTrackCue(aGlobal, aStartTime, aEndTime, aText);
+  }
 
   virtual JSObject* WrapObject(JSContext* aCx, JSObject* aScope,
-			       bool* aTriedToWrap);
+                               bool* aTriedToWrap);
 
-  nsISupports*
-  GetParentObject()
-  {
-    return mGlobal;
-  }
+  nsISupports* GetParentObject();
 
-  TextTrack* GetTrack() const
-  {
-    return mTrack;
-  }
+  TextTrack* GetTrack() const;
 
-  void GetId(nsAString& aId) const
-  {
-    aId = mId;
-  }
+  void GetId(nsAString& aId) const;
+  void SetId(const nsAString& aId);
 
-  void SetId(const nsAString& aId)
-  {
-    mId = aId;
-  }
+  double StartTime() const;
+  void SetStartTime(const double aStartTime);
 
-  double StartTime() const
-  {
-    return mStartTime;
-  }
+  double EndTime() const;
+  void SetEndTime(const double aEndTime);
 
-  void SetStartTime(const double aStartTime)
-  {
-    //XXXhumph: validate?
-    mStartTime = aStartTime;
-  }
+  bool PauseOnExit();
+  void SetPauseOnExit(const bool aPauseOnExit);
 
-  double EndTime() const
-  {
-    return mEndTime;
-  }
+  void GetVertical(nsAString& aVertical);
+  void SetVertical(const nsAString& aVertical);
 
-  void SetEndTime(const double aEndTime)
-  {
-    //XXXhumph: validate?
-    mEndTime = aEndTime;
-  }
+  bool SnapToLines();
+  void SetSnapToLines(bool aSnapToLines);
 
-  bool PauseOnExit()
-  {
-    return mPauseOnExit;
-  }
+  int32_t Position();
+  void SetPosition(int32_t aPosition);
 
-  void SetPauseOnExit(const bool aPauseOnExit)
-  {
-    mPauseOnExit = aPauseOnExit;
-  }
+  int32_t Size();
+  void SetSize(int32_t aSize);
 
-  void GetVertical(nsAString& aVertical)
-  {
-    aVertical = mVertical;
-  }
+  void GetAlign(nsAString& aAlign);
+  void SetAlign(const nsAString& aAlign);
 
-  void SetVertical(const nsAString& aVertical)
-  {
-    mVertical = aVertical;
-  }
+  void GetText(nsAString& aText);
+  void SetText(const nsAString& aText);
 
-  bool SnapToLines()
-  {
-    return mSnapToLines;
-  }
-
-  void SetSnapToLines(bool aSnapToLines)
-  {
-    mSnapToLines = aSnapToLines;
-  }
-
-  int32_t Position()
-  {
-    return mPosition;
-  }
-
-  void SetPosition(int32_t aPosition)
-  {
-    // XXXhumph: validate?
-    mPosition = aPosition;
-  }
-
-  int32_t Size()
-  {
-    return mSize;
-  }
-
-  void SetSize(int32_t aSize)
-  {
-    // XXXhumph: validate?
-    mSize = aSize;
-  }
-
-  void GetAlign(nsAString& aAlign)
-  {
-    aAlign = mAlign;
-  }
-
-  void SetAlign(const nsAString& aAlign)
-  {
-    // XXXhumph: validate?
-    mAlign = aAlign;
-  }
-
-  void GetText(nsAString& aText)
-  {
-    aText = mText;
-  }
-
-  void SetText(const nsAString& aText)
-  {
-    // XXXhumph: validate?
-    mText = aText;
-  }
-
-  DocumentFragment* GetCueAsHTML()
-  {
-    // XXXhumph: todo
-    return nullptr;
-  }
+  DocumentFragment* GetCueAsHTML();
 
   IMPL_EVENT_HANDLER(enter)
   IMPL_EVENT_HANDLER(exit)
 
 private:
+  void CueChanged()
+  {
+    if (mTrack) {
+// XXXhumph: need this on TextTrack (dale)
+//      mTrack->CueChanged(this);
+    }
+  }
+
   nsCOMPtr<nsISupports> mGlobal;
 
   nsRefPtr<TextTrack> mTrack;
   nsString mId;
-  double mStartTime;
-  double mEndTime;
-  bool mPauseOnExit;
   nsString mVertical;
-  bool mSnapToLines;
-  int32_t mPosition;
-  int32_t mSize;
   nsString mAlign;
   nsString mText;
+  double mStartTime;
+  double mEndTime;
+  int32_t mPosition;
+  int32_t mSize;
+  bool mPauseOnExit;
+  bool mSnapToLines;
 };
 
 } // namespace dom
