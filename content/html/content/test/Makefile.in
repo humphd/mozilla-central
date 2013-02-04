@@ -352,6 +352,7 @@ MOCHITEST_FILES = \
 		test_bug629801.html \
 		$(NULL)
 
+
 MOCHITEST_BROWSER_FILES = \
 		browser_bug649778.js \
 		file_bug649778.html \
