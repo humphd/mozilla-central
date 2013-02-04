@@ -9,12 +9,7 @@
 #include "nsGenericHTMLElement.h"
 #include "nsGkAtoms.h"
 
-nsGenericHTMLElement*
-NS_NewHTMLTimeElement(already_AddRefed<nsINodeInfo> aNodeInfo,
-                      mozilla::dom::FromParser aFromParser)
-{
-  return new mozilla::dom::HTMLTimeElement(aNodeInfo);
-}
+NS_IMPL_NS_NEW_HTML_ELEMENT(Time)
 
 namespace mozilla {
 namespace dom {
