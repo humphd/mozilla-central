@@ -25,11 +25,11 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=629801
 var t1 = document.getElementById('t1'),
     t2 = document.createElement('time');
 
-is(t1.datetime, "2011-11-12", "datetime is properly set");
+is(t1.dateTime, "2011-11-12", "datetime is properly set");
 
 reflectString({
   element: t2,
-  attribute: "datetime"
+  attribute: "dateTime"
 });
 
 </script>

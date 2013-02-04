@@ -9,5 +9,5 @@
  */
 
 interface HTMLTimeElement : HTMLElement {
-           attribute DOMString datetime;
+           attribute DOMString dateTime;
 };

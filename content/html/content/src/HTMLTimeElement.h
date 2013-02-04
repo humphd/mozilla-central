@@ -33,14 +33,14 @@ public:
   NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC
 
   // HTMLTimeElement WebIDL
-  void GetDatetime(nsAString& aDatetime)
+  void GetDateTime(nsAString& aDateTime)
   {
-    GetHTMLAttr(nsGkAtoms::datetime, aDatetime);
+    GetHTMLAttr(nsGkAtoms::datetime, aDateTime);
   }
 
-  void SetDatetime(const nsAString& aDatetime)
+  void SetDateTime(const nsAString& aDateTime)
   {
-    SetHTMLAttr(nsGkAtoms::datetime, aDatetime);
+    SetHTMLAttr(nsGkAtoms::datetime, aDateTime);
   }
 
   virtual nsresult Clone(nsINodeInfo* aNodeInfo, nsINode** aResult) const;
