@@ -38,9 +38,9 @@ public:
     GetHTMLAttr(nsGkAtoms::datetime, aDateTime);
   }
 
-  void SetDateTime(const nsAString& aDateTime)
+  void SetDateTime(const nsAString& aDateTime, mozilla::ErrorResult& aError)
   {
-    SetHTMLAttr(nsGkAtoms::datetime, aDateTime);
+    SetHTMLAttr(nsGkAtoms::datetime, aDateTime, aError);
   }
 
   virtual nsresult Clone(nsINodeInfo* aNodeInfo, nsINode** aResult) const;
