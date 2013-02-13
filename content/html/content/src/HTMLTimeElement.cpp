@@ -7,6 +7,7 @@
 #include "mozilla/dom/HTMLTimeElementBinding.h"
 #include "nsContentUtils.h"
 #include "nsGenericHTMLElement.h"
+#include "nsVariant.h"
 #include "nsGkAtoms.h"
 
 NS_IMPL_NS_NEW_HTML_ELEMENT(Time)
@@ -39,6 +40,21 @@ JSObject*
 HTMLTimeElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
 {
   return HTMLTimeElementBinding::Wrap(cx, scope, this, triedToWrap);
+}
+
+NS_IMETHODIMP
+HTMLTimeElement::GetItemValue(nsIVariant** aValue)
+{
+  if (!HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
+    nsCOMPtr<nsIWritableVariant> out = new nsVariant();
+    nsAutoString string;
+    GetHTMLAttr(nsGkAtoms::datetime, string);
+    out->SetAsString(NS_ConvertUTF16toUTF8(string).get());
+    out.forget(aValue);
+    return NS_OK;
+  }
+
+  return nsGenericHTMLElement::GetItemValue(aValue);
 }
 
 } // namespace dom
