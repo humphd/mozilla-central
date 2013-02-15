@@ -4,7 +4,6 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * The origin of this IDL file is
- * http://www.w3.org/TR/html5/text-level-semantics.html#the-time-element
  * http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-time-element
  */
 
