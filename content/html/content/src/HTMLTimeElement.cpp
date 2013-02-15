@@ -56,7 +56,11 @@ void
 HTMLTimeElement::SetItemValueText(const nsAString& text)
 {
   ErrorResult rv;
-  SetDateTime(text, rv);
+  if (HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
+    SetDateTime(text, rv);
+  } else {
+    SetTextContentInternal(text, rv);
+  }
 }
 
 } // namespace dom
