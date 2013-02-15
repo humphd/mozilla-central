@@ -42,25 +42,21 @@ HTMLTimeElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
   return HTMLTimeElementBinding::Wrap(cx, scope, this, triedToWrap);
 }
 
-NS_IMETHODIMP
-HTMLTimeElement::GetItemValue(nsIVariant** aValue)
+void
+HTMLTimeElement::GetItemValueText(nsAString& text)
 {
   if (HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
-    nsCOMPtr<nsIWritableVariant> out = new nsVariant();
-    nsAutoString string;
-    GetHTMLAttr(nsGkAtoms::datetime, string);
-    out->SetAsString(NS_ConvertUTF16toUTF8(string).get());
-    out.forget(aValue);
-    return NS_OK;
+    GetHTMLAttr(nsGkAtoms::datetime, text);
+  } else {
+    GetTextContentInternal(text);
   }
-
-  return nsGenericHTMLElement::GetItemValue(aValue);
 }
 
-NS_IMETHODIMP
-HTMLTimeElement::SetItemValue(nsIVariant* aValue)
+void
+HTMLTimeElement::SetItemValueText(const nsAString& text)
 {
-  return nsGenericHTMLElement::SetItemValue(aValue);
+  ErrorResult rv;
+  SetDateTime(text, rv);
 }
 
 } // namespace dom

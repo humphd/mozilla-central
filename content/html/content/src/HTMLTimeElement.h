@@ -30,10 +30,7 @@ public:
   NS_FORWARD_NSIDOMELEMENT_TO_GENERIC
 
   // nsIDOMHTMLElement
-  NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC_EXCEPT_ITEMVALUE
-
-  // Get/SetItemValue
-  NS_DECL_ITEMVALUE
+  NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC
 
   // HTMLTimeElement WebIDL
   void GetDateTime(nsAString& aDateTime)
@@ -41,11 +38,13 @@ public:
     GetHTMLAttr(nsGkAtoms::datetime, aDateTime);
   }
 
-  void SetDateTime(const nsAString& aDateTime, mozilla::ErrorResult& aError)
+  void SetDateTime(const nsAString& aDateTime, ErrorResult& aError)
   {
     SetHTMLAttr(nsGkAtoms::datetime, aDateTime, aError);
   }
 
+  virtual void GetItemValueText(nsAString& text);
+  virtual void SetItemValueText(const nsAString& text);
   virtual nsresult Clone(nsINodeInfo* aNodeInfo, nsINode** aResult) const;
   virtual nsIDOMNode* AsDOMNode() { return this; }
 

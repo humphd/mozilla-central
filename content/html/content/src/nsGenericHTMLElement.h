@@ -298,15 +298,13 @@ public:
     return rcFrame.height;
   }
 
-  // nsIDOMHTMLElement method. Note that this is a non-virtual
-  // method, implementations are expected to forward calls to this
-  // method.
+  // nsIDOMHTMLElement methods. Note that these are non-virtual
+  // methods, implementations are expected to forward calls to these
+  // methods.
   NS_IMETHOD InsertAdjacentHTML(const nsAString& aPosition,
                                 const nsAString& aText);
-
-  virtual nsresult GetItemValue(nsIVariant** aValue);
-  virtual nsresult SetItemValue(nsIVariant* aValue);
-
+  NS_IMETHOD GetItemValue(nsIVariant** aValue);
+  NS_IMETHOD SetItemValue(nsIVariant* aValue);
 protected:
   void GetProperties(nsISupports** aProperties);
   void GetContextMenu(nsIDOMHTMLMenuElement** aContextMenu) const;
@@ -1566,11 +1564,7 @@ protected:
     NS_INTERFACE_TABLE_ENTRY(_class, _i10)                                    \
   NS_OFFSET_AND_INTERFACE_TABLE_END
 
-#define NS_DECL_ITEMVALUE                                                      \
-  virtual nsresult GetItemValue(nsIVariant** aValue) MOZ_FINAL;                \
-  virtual nsresult SetItemValue(nsIVariant* aValue) MOZ_FINAL;
-
-#define NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC_EXCEPT_ITEMVALUE               \
+#define NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC                                \
   NS_IMETHOD GetId(nsAString& aId) MOZ_FINAL {                                 \
     mozilla::dom::Element::GetId(aId);                                         \
     return NS_OK;                                                              \
@@ -1658,6 +1652,12 @@ protected:
       MOZ_FINAL {                                                              \
     nsGenericHTMLElement::GetProperties(aReturn);                              \
     return NS_OK;                                                              \
+  }                                                                            \
+  NS_IMETHOD GetItemValue(nsIVariant** aValue) MOZ_FINAL {                     \
+    return nsGenericHTMLElement::GetItemValue(aValue);                         \
+  }                                                                            \
+  NS_IMETHOD SetItemValue(nsIVariant* aValue) MOZ_FINAL {                      \
+    return nsGenericHTMLElement::SetItemValue(aValue);                         \
   }                                                                            \
   NS_IMETHOD GetItemRef(nsIVariant** aRef) MOZ_FINAL {                         \
     GetTokenList(nsGkAtoms::itemref, aRef);                                    \
@@ -1798,15 +1798,6 @@ protected:
     mozilla::ErrorResult rv;                                                   \
     SetInnerHTML(aInnerHTML, rv);                                              \
     return rv.ErrorCode();                                                     \
-  }
-
-#define NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC                                \
-  NS_FORWARD_NSIDOMHTMLELEMENT_TO_GENERIC_EXCEPT_ITEMVALUE                     \
-  virtual nsresult GetItemValue(nsIVariant** aValue) MOZ_FINAL {               \
-    return nsGenericHTMLElement::GetItemValue(aValue);                         \
-  }                                                                            \
-  virtual nsresult SetItemValue(nsIVariant* aValue) MOZ_FINAL {                \
-    return nsGenericHTMLElement::SetItemValue(aValue);                         \
   }
 
 /**
