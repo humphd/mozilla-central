@@ -45,7 +45,7 @@ HTMLTimeElement::WrapNode(JSContext* cx, JSObject* scope, bool* triedToWrap)
 NS_IMETHODIMP
 HTMLTimeElement::GetItemValue(nsIVariant** aValue)
 {
-  if (!HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
+  if (HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
     nsCOMPtr<nsIWritableVariant> out = new nsVariant();
     nsAutoString string;
     GetHTMLAttr(nsGkAtoms::datetime, string);
@@ -55,6 +55,12 @@ HTMLTimeElement::GetItemValue(nsIVariant** aValue)
   }
 
   return nsGenericHTMLElement::GetItemValue(aValue);
+}
+
+NS_IMETHODIMP
+HTMLTimeElement::SetItemValue(nsIVariant* aValue)
+{
+  return nsGenericHTMLElement::SetItemValue(aValue);
 }
 
 } // namespace dom
