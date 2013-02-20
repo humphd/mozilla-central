@@ -46,7 +46,7 @@ void
 HTMLTimeElement::GetItemValueText(nsAString& text)
 {
   if (HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
-    GetHTMLAttr(nsGkAtoms::datetime, text);
+    GetDateTime(text);
   } else {
     GetTextContentInternal(text);
   }
@@ -56,11 +56,7 @@ void
 HTMLTimeElement::SetItemValueText(const nsAString& text)
 {
   ErrorResult rv;
-  if (HasAttr(kNameSpaceID_None, nsGkAtoms::datetime)) {
-    SetDateTime(text, rv);
-  } else {
-    SetTextContentInternal(text, rv);
-  }
+  SetDateTime(text, rv);
 }
 
 } // namespace dom
