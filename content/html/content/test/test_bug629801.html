@@ -46,7 +46,7 @@ is(times.properties["c"][0].itemValue, "2009-05-10", "itemValue getter with date
 
 // .itemValue setter uses datetime vs. text content
 times.properties["a"][0].itemValue = "2009-05-10";
-is(times.properties["a"][0].itemValue, "2009-05-10", "setting itemValue updates datetime");
+is(times.properties["a"][0].dateTime, "2009-05-10", "setting itemValue updates datetime");
 
 // dateTime reflects datetime attribute
 reflectString({
