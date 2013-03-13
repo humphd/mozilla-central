@@ -1100,6 +1100,7 @@ public:
   webvtt_cue *mCues;
 
   void AddTextTrack(mozilla::dom::TextTrack* aTextTrack) {
+fprintf(stderr, "\n\nnsHTMLMediaElement::AddTextTrack\n\n");
     mTextTracks->AddTextTrack(aTextTrack);
   }
 };
